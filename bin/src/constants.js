@@ -8,6 +8,8 @@ const EXCEPTIONS = {
   INIT_ALREADY_RUN: exception('INIT_ALREADY_RUN', 'Init already run')
 };
 const SETTINGS_FILE = 'lambdasync.json';
+const USE_PROXY = true;
+const PROXY_URI = 'http://gateway.seb.zscaler.net';
 const DEPENDENCY_HASH_FILE = '.dependencyhash';
 const AWS_USER_DIR = path.join(userHome, '.aws');
 const AWS_CREDENTIALS_PATH = path.join(AWS_USER_DIR, 'credentials');
@@ -47,6 +49,8 @@ const PROMPT_CHOICE_REGION = {type: 'list', name: 'region', message: 'Region', c
 module.exports = {
   EXCEPTIONS,
   SETTINGS_FILE,
+  USE_PROXY,
+  PROXY_URI,
   DEPENDENCY_HASH_FILE,
   AWS_USER_DIR,
   AWS_CREDENTIALS_PATH,
