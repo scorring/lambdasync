@@ -2,6 +2,6 @@
     "watch": ["src/index.ts"],
     "ext": "ts",
     "ignore": ["src/**/*.spec.ts"],
-    "exec": "ts-node {{targetDir}}/lambdasync/bin/src/devserver/index.js"
+    "exec": "ts-node {{lambdasyncRoot}}/bin/src/devserver/index.js"
   }
   

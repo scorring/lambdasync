@@ -137,12 +137,11 @@ function copyPackageJson(templateDir, targetDir, data) {
   );
 }
 
-function copyNodemonJson(templateDir, targetDir) {
-  console.log("IN copyNodemonJson");
+function copyNodemonJson(templateDir, targetDir, lambdasyncRoot) {
   const jsonTemplate = fs.readFileSync(path.join(templateDir, 'nodemon.json'), 'utf8');
   return fs.writeFileSync(
     path.join(targetDir, 'nodemon.json'),
-    mustacheLite(jsonTemplate, { targetDir: targetDir })
+    mustacheLite(jsonTemplate, { lambdasyncRoot: lambdasyncRoot })
   );
 }
 

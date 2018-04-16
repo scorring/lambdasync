@@ -38,7 +38,7 @@ module.exports = function (name = '', templateName) {
   copyTemplateDir(TEMPLATE_PATH, process.cwd())
     // Copy the package.json template, adding the project name as name
     .then(() => copyPackageJson(TEMPLATE_PATH, process.cwd(), {name}))
-    .then(() => copyNodemonJson(TEMPLATE_PATH, process.cwd()))
+    .then(() => copyNodemonJson(TEMPLATE_PATH, process.cwd(), LAMBDASYNC_ROOT))
     // Run the project init flow
     .then(() => maybeInit({}))
     .then(() => npmInstall())
