@@ -42,31 +42,7 @@ function handleCommand(command) {
     const whiteListRe = new RegExp(`^(${nodeCliWhiteList.join('|')})(=|$)`);
     const isWhitelisted = arg => whiteListRe.test(arg);
     
-    // console.log(`node ${process.argv
-    //   .slice(3)
-    //   .filter(isWhitelisted)
-    //   .join(' ')
-    // } ${path.join(LAMBDASYNC_SRC, 'devserver', 'index.js')}`);
-
-    // return execSync(`node ${process.argv
-    //   .slice(3)
-    //   .filter(isWhitelisted)
-    //   .join(' ')
-    // } ${path.join(LAMBDASYNC_SRC, 'devserver', 'index.js')}`, {stdio:[0,1,2]});
-    
-    return execSync(`nodemon ${process.argv
-      .slice(3)
-      .filter(isWhitelisted)
-      .join(' ')
-    } ${path.join(LAMBDASYNC_SRC, 'devserver', 'index.js')}`, {stdio:[0,1,2]});
-
-    // return nodemon({ script:  `${path.join(LAMBDASYNC_SRC, 'devserver', 'index.js')}`}).on('start', function () {
-    //   execSync('tsc');
-    //   setTimeout(() => {
-    //     console.log("timeourt");
-    //   }, 1000);
-    //   console.log('nodemon started');
-    // });
+    return nodemon({ script:  `${path.join(LAMBDASYNC_SRC, 'devserver', 'index.js')}`});
   }
 
   if (command._[0] === 'logs') {

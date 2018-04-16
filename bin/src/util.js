@@ -137,6 +137,15 @@ function copyPackageJson(templateDir, targetDir, data) {
   );
 }
 
+function copyNodemonJson(templateDir, targetDir) {
+  console.log("IN copyNodemonJson");
+  const jsonTemplate = fs.readFileSync(path.join(templateDir, 'nodemon.json'), 'utf8');
+  return fs.writeFileSync(
+    path.join(targetDir, 'nodemon.json'),
+    mustacheLite(jsonTemplate, { targetDir: targetDir })
+  );
+}
+
 function hashPackageDependencies({dependencies = {}}) {
   if (!dependencies) {
     return null;
@@ -257,6 +266,7 @@ exports.formatTimestamp = formatTimestamp;
 exports.isDate = isDate;
 exports.functionExists = functionExists;
 exports.copyPackageJson = copyPackageJson;
+exports.copyNodemonJson = copyNodemonJson;
 exports.npmInstall = npmInstall;
 exports.hashPackageDependencies = hashPackageDependencies;
 exports.ignoreData = ignoreData;

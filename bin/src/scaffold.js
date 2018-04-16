@@ -4,7 +4,7 @@ const validate = require('validate-npm-package-name');
 const copy = require('recursive-copy');
 
 const maybeInit = require('./init');
-const {mustacheLite, markdown, copyPackageJson, npmInstall, logger} = require('./util');
+const {mustacheLite, markdown, copyPackageJson, copyNodemonJson, npmInstall, logger} = require('./util');
 const {LAMBDASYNC_ROOT, SETTINGS_FILE} = require('./constants');
 const {setSettingsFile} = require('./settings');
 
@@ -38,6 +38,7 @@ module.exports = function (name = '', templateName) {
   copyTemplateDir(TEMPLATE_PATH, process.cwd())
     // Copy the package.json template, adding the project name as name
     .then(() => copyPackageJson(TEMPLATE_PATH, process.cwd(), {name}))
+    .then(() => copyNodemonJson(TEMPLATE_PATH, process.cwd()))
     // Run the project init flow
     .then(() => maybeInit({}))
     .then(() => npmInstall())
@@ -56,7 +57,7 @@ module.exports = function (name = '', templateName) {
 
 function copyTemplateDir(templateDir, targetDir) {
   const packageJsonFilter = {
-    filter: path => path && !path.includes('package.json')
+    filter: path => path && !path.includes('package.json') && !path.includes('nodemon.json')
   };
   return copy(templateDir, targetDir, packageJsonFilter);
 }
