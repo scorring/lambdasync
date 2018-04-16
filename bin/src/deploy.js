@@ -6,6 +6,7 @@ const mkdirp = require('mkdirp');
 const minimatch = require('minimatch');
 const rimraf = require('rimraf');
 const chainData = require('chain-promise-data');
+const {execSync} = require('child_process');
 const {description} = require('../../package.json');
 const {
   promisedExec,
@@ -187,9 +188,17 @@ function updateDependencies() {
     .then(() => process.chdir(TARGET_ROOT));
 }
 
-const lambdasyncIgnores = ['.git/**', '.lambdasync/**', 'lambdasync.json', 'package.json', 'package-lock.json', 'node_modules/**'];
+const lambdasyncIgnores = ['.git/**', '.lambdasync/**', 'lambdasync.json', 'package.json', 'package-lock.json', 'node_modules/**', 'build/**'];
+
+function transpileFiles() {
+  return execSync('tsc');
+}
 
 function copyFiles(ignore, include) {
+  // Transpile
+  transpileFiles();
+  // First copy build/index.js to root
+  fs.createReadStream(`${TARGET_ROOT}/build/index.js`).pipe(fs.createWriteStream(`${TARGET_DEPLOY_DIR}/index.js`));
   return copy(TARGET_ROOT, TARGET_DEPLOY_DIR, {
     filter: function copyFilter(path) {
       const ignoreMatch = ignore ? matchesPatterns(path, ignore) : false;

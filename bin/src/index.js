@@ -18,6 +18,8 @@ const {config, variable} = require('./config');
 const {logs} = require('./logs');
 const {LAMBDASYNC_SRC} = require('./constants');
 
+var nodemon = require('nodemon');
+
 const command = minimist(process.argv.slice(2), {
   alias: {
     v: 'version',
@@ -39,11 +41,32 @@ function handleCommand(command) {
     const nodeCliWhiteList = ['-r', '--inspect', '--inspect-brk', '--inspect-port', '--trace-sync-io', '--preserve-symlinks', '--icu-data-dir'];
     const whiteListRe = new RegExp(`^(${nodeCliWhiteList.join('|')})(=|$)`);
     const isWhitelisted = arg => whiteListRe.test(arg);
-    return execSync(`node ${process.argv
+    
+    // console.log(`node ${process.argv
+    //   .slice(3)
+    //   .filter(isWhitelisted)
+    //   .join(' ')
+    // } ${path.join(LAMBDASYNC_SRC, 'devserver', 'index.js')}`);
+
+    // return execSync(`node ${process.argv
+    //   .slice(3)
+    //   .filter(isWhitelisted)
+    //   .join(' ')
+    // } ${path.join(LAMBDASYNC_SRC, 'devserver', 'index.js')}`, {stdio:[0,1,2]});
+    
+    return execSync(`nodemon ${process.argv
       .slice(3)
       .filter(isWhitelisted)
       .join(' ')
     } ${path.join(LAMBDASYNC_SRC, 'devserver', 'index.js')}`, {stdio:[0,1,2]});
+
+    // return nodemon({ script:  `${path.join(LAMBDASYNC_SRC, 'devserver', 'index.js')}`}).on('start', function () {
+    //   execSync('tsc');
+    //   setTimeout(() => {
+    //     console.log("timeourt");
+    //   }, 1000);
+    //   console.log('nodemon started');
+    // });
   }
 
   if (command._[0] === 'logs') {

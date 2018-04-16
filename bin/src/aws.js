@@ -1,11 +1,11 @@
 const AWS = require('aws-sdk');
 var proxy = require('proxy-agent');
-const { USE_PROXY, PROXY_URI } = require('../constants.js');
+const { USE_PROXY, PROXY_URI } = require('./constants.js');
 
 if (USE_PROXY) {
   AWS.config.update({
     httpOptions: { 
-      agent: proxy(PROXY_URI) 
+      agent: proxy(PROXY_URI)
     }
   });
 }

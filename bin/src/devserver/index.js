@@ -59,7 +59,8 @@ startWith()
   ))
   .then(chainData(
     ({packageJson}) => {
-      let handlerPath = makeAbsolutePath('index.js');
+      // let handlerPath = makeAbsolutePath('build/index.js');
+      let handlerPath = makeAbsolutePath('src/index.ts');
       if (packageJson && packageJson.lambdasync && packageJson.lambdasync.entry) {
         handlerPath = makeAbsolutePath(packageJson.lambdasync.entry);
       }
